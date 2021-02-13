@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -32,6 +33,9 @@ public class IntakeSubsystem extends SubsystemBase {
   private double dropRotations = -1.25;
   //Error range for middle to prevent oscillations
   private double error = 0.05;
+  private double timeStarted = 0.0;
+  private double timeElapsed = 3.0;
+  private double currentTime;
   
   public IntakeSubsystem() {
     deploy=new WPI_TalonSRX(Constants.INTAKEDEPLOY);
@@ -53,7 +57,30 @@ public class IntakeSubsystem extends SubsystemBase {
   //Drop and raise the intake to load in balls
   //Three different heights: home, up, and down
   public boolean deployIntake(int direction){
+    //Check if method has been called before
+    if (timeStarted == 0.0){
+      timeStarted = Timer.getFPGATimestamp();
+    }
+    /*
+    if (direction == -1){
+      deploy.set(direction*.5);
+      System.out.println("Direction is -1");
+    }
+    else if (direction == 1){
+      deploy.set(direction*.5);
+      System.out.println("Direction is 1");
+    }*/
+
+    currentTime = Timer.getFPGATimestamp();
+    if (currentTime - timeStarted >= timeElapsed){
+      System.out.println("Time Elapsed is " + (currentTime-timeStarted) + " seconds");
+      timeStarted = 0.0;
+      deploy.set(0);
+      return true;
+    }
+
     double distance=deployEncoder.getDistance();
+    //System.out.println("Distance is " + distance);
     if(!dio.get()){
       resetEncoder();
     }
@@ -64,6 +91,7 @@ public class IntakeSubsystem extends SubsystemBase {
       }
       else{
         deploy.set(0);
+        timeStarted = 0.0;
       }//*/
       return (distance)<=rotations;
     }
@@ -75,6 +103,7 @@ public class IntakeSubsystem extends SubsystemBase {
       }
       else{
         deploy.set(0);
+        timeStarted = 0.0;
       }
       return distance>=0;
     }
