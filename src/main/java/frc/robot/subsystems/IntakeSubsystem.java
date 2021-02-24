@@ -29,12 +29,12 @@ public class IntakeSubsystem extends SubsystemBase {
   private DigitalInput dio;
   private TalonSRXConfiguration intakeSettings;
   //Rotations SHOULD be changed depending on desired height
-  private double rotations = -1.95;
-  private double dropRotations = -1.25;
+  private double rotations = -2.5;
+  private double dropRotations = 0.5;
   //Error range for middle to prevent oscillations
   private double error = 0.05;
   private double timeStarted = 0.0;
-  private double timeElapsed = 3.0;
+  private double timeElapsed = 4.5;
   private double currentTime;
   
   public IntakeSubsystem() {
@@ -73,7 +73,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     currentTime = Timer.getFPGATimestamp();
     if (currentTime - timeStarted >= timeElapsed){
-      System.out.println("Time Elapsed is " + (currentTime-timeStarted) + " seconds");
+      //System.out.println("Time Elapsed is " + (currentTime-timeStarted) + " seconds");
       timeStarted = 0.0;
       deploy.set(0);
       return true;
@@ -87,41 +87,61 @@ public class IntakeSubsystem extends SubsystemBase {
     //Bring all the way down
     if (direction==-1){
       if(distance>rotations){
-        deploy.set(direction*.5);
-      }
-      else{
-        deploy.set(0);
-        timeStarted = 0.0;
-      }//*/
-      return (distance)<=rotations;
-    }
-    //Bring all the way up
-    else{
-    //else if (direction==1){
-      if(distance<0){
-        deploy.set(direction*.5);
-      }
-      else{
-        deploy.set(0);
-        timeStarted = 0.0;
-      }
-      return distance>=0;
-    }
-    //Bring to middle position
-    /*else{
-      if(distance>rotations-dropRotations){
-        deploy.set(-0.5);
+        deploy.set(direction*.75);
         return false;
       }
-      else if (distance<rotations-dropRotations){
+      else{
+        deploy.set(0);
+        timeStarted = 0.0;
+        return true;
+      }
+    }
+    //Bring all the way up
+    else if (direction==1){
+      if(distance<0){
+        deploy.set(direction*.5);
+        return false;
+      }
+      else{
+        deploy.set(0);
+        timeStarted = 0.0;
+        return true;
+      }
+    }
+    //Bring to middle position
+    else{
+      System.out.println("GOING TO MIDDLE POSITION");
+      //Check if height is around middle position with +- error
+      //System.out.println("up" + (distance<(rotations+dropRotations)));
+      if (Math.abs(distance-(rotations+dropRotations)) <= error){
+      //if (distance-(rotations+dropRotations) <= error || distance-(rotations+dropRotations) <= -error){
+        System.out.println("Within error range");
+        deploy.set(0);
+        timeStarted = 0.0;
+        return true;
+      }
+      else if(distance>(rotations+dropRotations)){
+        System.out.println("GOING DOWN");
+        deploy.set(-0.75);
+        return false;
+      }
+      //Issue here with coming up IN CODE as it won't move
+      else {
+        System.out.println("GOING UP");
+        deploy.set(0.75);
+        return false;
+      }
+      /*
+      else if (distance<(rotations+dropRotations)){
         deploy.set(0.5);
         return false;
       }
       else{
         deploy.set(0);
+        timeStarted = 0.0;
         return true;
-      }
-    }*/
+      }*/
+    }
   }
 
   public void periodic(){

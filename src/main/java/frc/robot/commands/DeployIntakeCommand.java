@@ -13,10 +13,12 @@ public class DeployIntakeCommand extends CommandBase{
         addRequirements(intake);
     }
     public void execute(){
+        System.out.println("executing...");
         fin=intake.deployIntake(speed);
     }
     @Override
     public boolean isFinished() {
+        System.out.println("IS " + fin);
         return fin;
     }
     @Override

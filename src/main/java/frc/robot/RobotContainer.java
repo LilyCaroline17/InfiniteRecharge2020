@@ -129,7 +129,7 @@ public class RobotContainer {
     JoystickButton Bc = new JoystickButton(coDriverOI, 2);
     Bc.whenPressed(new ChangeLauncherSpeedCommand(0, mLauncherSubsystem));
     JoystickButton Xc = new JoystickButton(coDriverOI, 3);
-    Xc.whenPressed(new ChangeLauncherSpeedCommand(1000, mLauncherSubsystem));
+    Xc.whenPressed(new ChangeLauncherSpeedCommand(1500, mLauncherSubsystem));
     //Xc.whenPressed(new ChangeLauncherSpeedCommand(2750, mLauncherSubsystem));// 2950
     JoystickButton Yc = new JoystickButton(coDriverOI, 4);
     Yc.whenPressed(new ChangeLauncherSpeedCommand(3000,mLauncherSubsystem));// 3750
@@ -192,7 +192,7 @@ public class RobotContainer {
     //Intake Return Home
     dPadUpCo.whenPressed(new DeployIntakeCommand(mIntakeSubsystem, 1));
     //Intake Deploy Down Waiting for ball
-    //dPadRightCo.whenPressed(new DeployIntakeCommand(mIntakeSubsystem, 0));
+    dPadRightCo.whenPressed(new DeployIntakeCommand(mIntakeSubsystem, 0));
     //Intake Drop for Ball Pickup
     dPadDownCo.whenPressed(new DeployIntakeCommand(mIntakeSubsystem, -1));
   }

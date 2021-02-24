@@ -14,9 +14,7 @@ public class LimeLightSubsystem extends SubsystemBase{
     private double d;
 
     public LimeLightSubsystem(){
-
-
-
+        lightOff();
     }
     public void periodic(){
         dashBoard();
@@ -50,5 +48,11 @@ public class LimeLightSubsystem extends SubsystemBase{
 		return ty.getDouble(0.0);
     }
     public void lightOn(){
+        table.getEntry("ledMode").setNumber(3);
+    }
+
+    public void lightOff(){
+        // CHECK TO ADD LIMELIGHT OFF
+        table.getEntry("ledMode").setNumber(1);
     }
 }
