@@ -35,6 +35,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeWheelsSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.subsystems.PDPSubsystem;
@@ -69,6 +70,7 @@ public class RobotContainer {
   public static PIDController launcherPID;
   private LauncherSubsystem mLauncherSubsystem;
   public IntakeSubsystem mIntakeSubsystem;
+  public IntakeWheelsSubsystem mIntakeWheelsSubsystem;
   private IntakeCommand feedIntakeCommand;
   private IntakeCommand stopIntakeCommand;
   private IntakeCommand reverseIntake;
@@ -103,9 +105,9 @@ public class RobotContainer {
     launcherPID = new PIDController(Constants.LAUNCHERKP, Constants.LAUNCHERKI, Constants.LAUNCHERKD);
     mLauncherSubsystem = new LauncherSubsystem(launcherPID);
     mIntakeSubsystem = new IntakeSubsystem();
-    feedIntakeCommand = new IntakeCommand(mIntakeSubsystem, -0.3);
-    stopIntakeCommand = new IntakeCommand(mIntakeSubsystem, 0);
-    reverseIntake = new IntakeCommand(mIntakeSubsystem, 0.3);
+    feedIntakeCommand = new IntakeCommand(mIntakeWheelsSubsystem, -0.3);
+    stopIntakeCommand = new IntakeCommand(mIntakeWheelsSubsystem, 0);
+    reverseIntake = new IntakeCommand(mIntakeWheelsSubsystem, 0.3);
     AUTO = new AutonomousCommand(m_driveSubsystem, mLauncherSubsystem, m_LimeLightSubsystem, m_hopperSubsystem);
     AUTO1 = new AutonomousCommand1(m_driveSubsystem, mLauncherSubsystem, m_LimeLightSubsystem, m_hopperSubsystem);
     home=new IntakeHomeCommand(mIntakeSubsystem);

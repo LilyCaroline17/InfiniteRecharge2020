@@ -23,11 +23,11 @@ import edu.wpi.first.wpilibj.Timer;
 public class IntakeSubsystem extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_TalonSRX intake;
+  //private WPI_TalonSRX intake;
   public WPI_TalonSRX deploy;
   private Encoder deployEncoder;
   private DigitalInput dio;
-  private TalonSRXConfiguration intakeSettings;
+  //private TalonSRXConfiguration intakeSettings;
   //Rotations SHOULD be changed depending on desired height
   private double rotations = -2.5;
   private double dropRotations = 0.5;
@@ -44,12 +44,12 @@ public class IntakeSubsystem extends SubsystemBase {
     deployEncoder.reset();
     deployEncoder.setMaxPeriod(4);
     dio=new DigitalInput(Constants.ISWITCH);
-    intake=new WPI_TalonSRX(Constants.INTAKE);
+    /*intake=new WPI_TalonSRX(Constants.INTAKE);
     intakeSettings=new TalonSRXConfiguration();
     intakeSettings.peakCurrentLimit= 5;
     intakeSettings.continuousCurrentLimit=5;
     intakeSettings.peakCurrentDuration=0;
-    intake.configAllSettings(intakeSettings);
+    intake.configAllSettings(intakeSettings);*/
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
@@ -110,24 +110,24 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     //Bring to middle position
     else{
-      System.out.println("GOING TO MIDDLE POSITION");
+      //System.out.println("GOING TO MIDDLE POSITION");
       //Check if height is around middle position with +- error
       //System.out.println("up" + (distance<(rotations+dropRotations)));
       if (Math.abs(distance-(rotations+dropRotations)) <= error){
       //if (distance-(rotations+dropRotations) <= error || distance-(rotations+dropRotations) <= -error){
-        System.out.println("Within error range");
+        //System.out.println("Within error range");
         deploy.set(0);
         timeStarted = 0.0;
         return true;
       }
       else if(distance>(rotations+dropRotations)){
-        System.out.println("GOING DOWN");
+        //System.out.println("GOING DOWN");
         deploy.set(-0.75);
         return false;
       }
       //Issue here with coming up IN CODE as it won't move
       else {
-        System.out.println("GOING UP");
+        //System.out.println("GOING UP");
         deploy.set(0.75);
         return false;
       }
@@ -149,12 +149,14 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("deploy count", deployEncoder.get());
     SmartDashboard.putBoolean("deployswitch", dio.get());
   }
+  /*
   public void runIntake(double speed){
     intake.set(speed);
-  }
+  }*/
+  
   public void resetEncoder(){
     deployEncoder.reset();
-    intake.set(0);
+    //intake.set(0);
   }
   public boolean getSwitch(){
     return dio.get();
