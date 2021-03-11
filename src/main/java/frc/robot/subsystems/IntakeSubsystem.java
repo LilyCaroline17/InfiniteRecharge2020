@@ -29,8 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private DigitalInput dio;
   //private TalonSRXConfiguration intakeSettings;
   //Rotations SHOULD be changed depending on desired height
-  private double rotations = -2.5;
-  private double dropRotations = 0.5;
+  private double rotations = -2.38;
+  private double dropRotations = 0.4;
   //Error range for middle to prevent oscillations
   private double error = 0.05;
   private double timeStarted = 0.0;

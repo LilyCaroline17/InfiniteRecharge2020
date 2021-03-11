@@ -15,16 +15,18 @@ public class DeployIntakeCommand extends CommandBase{
     public void execute(){
         //System.out.println("executing...");
         fin=intake.deployIntake(speed);
+        //System.out.println(fin);
     }
     @Override
     public boolean isFinished() {
-        System.out.println("IS " + fin);
+        //System.out.println("IS " + fin);
         return fin;
     }
     @Override
     public void end(boolean interupted){
         //intake.resetEncoder();
         intake.deploy.set(0);
-        System.out.println("Interupted");
+        //System.out.println(fin);
+        //System.out.println("Interupted?" + interupted);
     }
 }

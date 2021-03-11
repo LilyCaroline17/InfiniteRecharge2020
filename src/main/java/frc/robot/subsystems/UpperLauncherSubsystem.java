@@ -25,26 +25,26 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 /**
  * Launcher subsystem
  */
-public class LauncherSubsystem extends PIDSubsystem {
+public class UpperLauncherSubsystem extends PIDSubsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private static PIDController pid;
   private static CANSparkMax launcher1 = new CANSparkMax(Constants.LAUNCHER1, MotorType.kBrushless);
-  private static CANSparkMax launcher2 = new CANSparkMax(Constants.LAUNCHER2, MotorType.kBrushless);
-  private static CANEncoder lEncoder = new CANEncoder(launcher2);
+  //private static CANSparkMax launcher2 = new CANSparkMax(Constants.LAUNCHER2, MotorType.kBrushless);
+  private static CANEncoder lEncoder = new CANEncoder(launcher1);
   //private static Talon launcher1 = new Talon(Constants.Launcher1);
   //private static Talon launcher2 = new Talon(Constants.Launcher2);
   private double setpoint = 0;
-  private static SpeedControllerGroup launcher = new SpeedControllerGroup(launcher1, launcher2);
+  //private static SpeedControllerGroup launcher = new SpeedControllerGroup(launcher1, launcher2);
 
   /**
    * constructs the launcher subsystem
    * 
    * @param inPID the pid controller for the launcher
    */
-  public LauncherSubsystem(PIDController inPID) {
+  public UpperLauncherSubsystem(PIDController inPID) {
     super(inPID);
-    launcher.setInverted(false);
+    launcher1.setInverted(false);
   }
 
   /**
@@ -65,10 +65,10 @@ public class LauncherSubsystem extends PIDSubsystem {
   public void periodic() {
     // setSetpoint(RobotContainer.coDriverOI.getY()); NEVER EVER DO THIS
     useOutput(lEncoder.getVelocity(), setpoint);
-    SmartDashboard.putNumber("LauncherSpeed in RPM", lEncoder.getVelocity());
-    SmartDashboard.putNumber("Launcher Current", launcher1.getOutputCurrent());
-    SmartDashboard.putNumber("LauncherSetpoint in RPM", setpoint);
-    SmartDashboard.putNumber("Launcher get", launcher1.get());
+    SmartDashboard.putNumber("UpperLauncherSpeed in RPM", lEncoder.getVelocity());
+    SmartDashboard.putNumber("UpperLauncher Current", launcher1.getOutputCurrent());
+    SmartDashboard.putNumber("UpperLauncherSetpoint in RPM", setpoint);
+    SmartDashboard.putNumber("UpperLauncher get", launcher1.get());
   }
 
   @Override
@@ -86,19 +86,19 @@ public class LauncherSubsystem extends PIDSubsystem {
     }
     output=getController().calculate(output,setpoint)/lEncoder.getVelocityConversionFactor();
     launcher1.set(output*0.95);
-    launcher2.set(output);
+    //launcher2.set(output);
 	
   }
   @Override
   protected double getMeasurement() {
-	  return launcher.get();
+	  return launcher1.get();
   }
   /**
    * sets the launcher speed
    * @param s the speed to change to
    */
   public static void setSpeed(double s){
-    launcher.set(s/lEncoder.getVelocityConversionFactor());
+    launcher1.set(s/lEncoder.getVelocityConversionFactor());
 
   }
 }

@@ -17,29 +17,32 @@ import frc.robot.commands.DriveSoloCommand;
 import frc.robot.commands.HopperCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
-import frc.robot.subsystems.LauncherSubsystem;
+import frc.robot.subsystems.UpperLauncherSubsystem;
+import frc.robot.subsystems.LowerLauncherSubsystem;
 import frc.robot.subsystems.LimeLightSubsystem;
 
 public class AutonomousCommand extends CommandGroupBase {
    private DriveSubsystem drive;
-   private LauncherSubsystem launcherSubsystem;
+   private UpperLauncherSubsystem mUpperLauncherSubsystem;
+   private LowerLauncherSubsystem mLowerLauncherSubsystem;
    private LimeLightSubsystem lime;
    private HopperSubsystem hopperSubsystem;
    private DriveSoloCommand solo;
    private CommandGroupBase auto;
    private boolean done=false;
    private Timer time=new Timer();
-   public AutonomousCommand(DriveSubsystem drive, LauncherSubsystem launcherSubsystem,LimeLightSubsystem lime, HopperSubsystem hopperSubsystem) {      
+   public AutonomousCommand(DriveSubsystem drive, UpperLauncherSubsystem upperLauncherSubsystem, LowerLauncherSubsystem lowerLauncherSubsystem, LimeLightSubsystem lime, HopperSubsystem hopperSubsystem) {      
       this.drive = drive;
-      this.launcherSubsystem = launcherSubsystem;
+      this.mUpperLauncherSubsystem = upperLauncherSubsystem;
+      this.mLowerLauncherSubsystem = lowerLauncherSubsystem;
       this.lime=lime;
       this.hopperSubsystem=hopperSubsystem;
       addRequirements(drive);
-      addRequirements(launcherSubsystem);
+      addRequirements(mUpperLauncherSubsystem);
       addRequirements(lime);
       addRequirements(hopperSubsystem);
       solo=new DriveSoloCommand(drive, lime, 0.5, 0.5, 60);
-      addCommands(new ChangeLauncherSpeedCommand(3000,launcherSubsystem),solo,new AdjustLauncherCommand(launcherSubsystem, lime),new WaitCommand(4),new HopperCommand(hopperSubsystem, Constants.HOPPER_SPEED));
+      addCommands(new ChangeLauncherSpeedCommand(3000,mUpperLauncherSubsystem, mLowerLauncherSubsystem),solo,new AdjustLauncherCommand(mUpperLauncherSubsystem, mLowerLauncherSubsystem, lime),new WaitCommand(4),new HopperCommand(hopperSubsystem, Constants.HOPPER_SPEED));
    }
 
    public void inititialize(){

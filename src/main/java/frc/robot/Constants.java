@@ -18,7 +18,8 @@ import io.github.oblarg.oblog.annotations.*;
  */
 public final class Constants {
     @Log
-    public static double PORT_HEIGHT=86.75;
+    public static double PORT_HEIGHT=41.75;
+    //public static double PORT_HEIGHT=86.75;
     @Log
     public static final double ANGLE=14;
     @Log

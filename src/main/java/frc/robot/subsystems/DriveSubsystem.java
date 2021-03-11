@@ -5,12 +5,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * The subsystem for the main drivetrain
@@ -59,6 +61,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @param y right wheels
    */
   public void drive(double x, double y) {
+    SmartDashboard.putNumber("Drive left", x);
+    SmartDashboard.putNumber("Drive right", y);
     driveTrain.tankDrive(deadzone(x),deadzone(y));
   }
 

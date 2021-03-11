@@ -8,12 +8,12 @@ public class IntakeCommand extends CommandBase{
     private double speed;
     private boolean fin = false;
     public  IntakeCommand(IntakeWheelsSubsystem subsystem, double speed) {
-        intake=subsystem;
+        this.intake=subsystem;
         this.speed=speed;
         addRequirements(intake);
     }
     public void execute(){
-        intake.runIntake(speed);
+        this.intake.runIntake(speed);
         fin=true;
     }
     @Override

@@ -96,7 +96,7 @@ public class HopperCommand extends CommandBase {
                 }
               },250);
             }
-          },2000);
+          },3000);
         }
       }
       //check to see if the hopper should stop

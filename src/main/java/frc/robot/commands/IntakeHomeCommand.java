@@ -13,6 +13,7 @@ public class IntakeHomeCommand extends CommandBase {
         addRequirements(intake);
     }
     public void execute(){
+        fin=false;
         intake.deploy.set(speed*.25);
         if(!intake.getSwitch()){
             //System.out.println("STOP!");
