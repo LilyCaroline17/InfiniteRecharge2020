@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.EncoderType;
 
 /**
  * Launcher subsystem
@@ -31,7 +32,10 @@ public class UpperLauncherSubsystem extends PIDSubsystem {
   private static PIDController pid;
   private static CANSparkMax launcher1 = new CANSparkMax(Constants.LAUNCHER1, MotorType.kBrushless);
   //private static CANSparkMax launcher2 = new CANSparkMax(Constants.LAUNCHER2, MotorType.kBrushless);
-  private static CANEncoder lEncoder = new CANEncoder(launcher1);
+  //3/13/2021 Modifications to Encoder Declaration
+  //private static CANEncoder lEncoder = new CANEncoder(launcher1, EncoderType.kQuadrature, 42);
+  // Original Encoder Declaration
+  private static CANEncoder Encoder1 = new CANEncoder(launcher1);
   //private static Talon launcher1 = new Talon(Constants.Launcher1);
   //private static Talon launcher2 = new Talon(Constants.Launcher2);
   private double setpoint = 0;
@@ -64,11 +68,14 @@ public class UpperLauncherSubsystem extends PIDSubsystem {
    */
   public void periodic() {
     // setSetpoint(RobotContainer.coDriverOI.getY()); NEVER EVER DO THIS
-    useOutput(lEncoder.getVelocity(), setpoint);
-    SmartDashboard.putNumber("UpperLauncherSpeed in RPM", lEncoder.getVelocity());
+    useOutput(Encoder1.getVelocity(), setpoint);
+    SmartDashboard.putNumber("UpperLauncherSpeed in RPM", Encoder1.getVelocity());
     SmartDashboard.putNumber("UpperLauncher Current", launcher1.getOutputCurrent());
     SmartDashboard.putNumber("UpperLauncherSetpoint in RPM", setpoint);
     SmartDashboard.putNumber("UpperLauncher get", launcher1.get());
+    SmartDashboard.putNumber("UpperLauncher getCPR", Encoder1.getCountsPerRevolution());
+    SmartDashboard.putNumber("UpperLauncher getPosition", Encoder1.getPosition());
+    SmartDashboard.putNumber("UpperLauncher getVelocityConversionFactor", Encoder1.getVelocityConversionFactor());
   }
 
   @Override
@@ -84,8 +91,10 @@ public class UpperLauncherSubsystem extends PIDSubsystem {
         setpoint=this.setpoint;
       }
     }
-    output=getController().calculate(output,setpoint)/lEncoder.getVelocityConversionFactor();
-    launcher1.set(output*0.95);
+    output=getController().calculate(output,setpoint)/Encoder1.getVelocityConversionFactor();
+    launcher1.set(output);
+    //launcher1.set(output*0.95);    
+    //System.out.println("UpperLauncher:" + output*0.95);
     //launcher2.set(output);
 	
   }
@@ -98,7 +107,7 @@ public class UpperLauncherSubsystem extends PIDSubsystem {
    * @param s the speed to change to
    */
   public static void setSpeed(double s){
-    launcher1.set(s/lEncoder.getVelocityConversionFactor());
+    launcher1.set(s/Encoder1.getVelocityConversionFactor());
 
   }
 }

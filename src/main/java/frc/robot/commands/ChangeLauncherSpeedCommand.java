@@ -35,7 +35,7 @@ public class ChangeLauncherSpeedCommand extends CommandBase{
      */
     public void execute(){
         mUpperLauncher.setSetpoint(setSpeed);
-        mLowerLauncher.setSetpoint(setSpeed);
+        mLowerLauncher.setSetpoint(setSpeed*.50);
         if(!RobotContainer.coDriverOI.getRawButton(Constants.LEFT_BUMPER)){
             fin=true;
         }

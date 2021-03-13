@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.EncoderType;
 
 /**
  * Launcher subsystem
@@ -31,6 +32,9 @@ public class LowerLauncherSubsystem extends PIDSubsystem {
   private static PIDController pid;
   //private static CANSparkMax launcher1 = new CANSparkMax(Constants.LAUNCHER1, MotorType.kBrushless);
   private static CANSparkMax launcher2 = new CANSparkMax(Constants.LAUNCHER2, MotorType.kBrushless);
+  //3/13/2021 Modifications to Encoder Declaration
+  //private static CANEncoder Encoder2 = new CANEncoder(launcher2, EncoderType.kQuadrature, 42);
+  // Original Encoder Declaration
   private static CANEncoder Encoder2 = new CANEncoder(launcher2);
   //private static Talon launcher1 = new Talon(Constants.Launcher1);
   //private static Talon launcher2 = new Talon(Constants.Launcher2);
@@ -69,6 +73,9 @@ public class LowerLauncherSubsystem extends PIDSubsystem {
     SmartDashboard.putNumber("LowerLauncher Current", launcher2.getOutputCurrent());
     SmartDashboard.putNumber("LowerLauncherSetpoint in RPM", setpoint);
     SmartDashboard.putNumber("LowerLauncher get", launcher2.get());
+    SmartDashboard.putNumber("LowerLauncher getCPR", Encoder2.getCountsPerRevolution());
+    SmartDashboard.putNumber("LowerLauncher getPosition", Encoder2.getPosition());
+    SmartDashboard.putNumber("LowerLauncher getVelocityConversionFactor", Encoder2.getVelocityConversionFactor());
   }
 
   @Override

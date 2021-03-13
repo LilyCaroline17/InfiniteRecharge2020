@@ -70,6 +70,16 @@ public final class Constants {
   public static final int FRONT_LEFT = 11;
   public static final int BACK_LEFT = 12;
   //Final Variables
+
+  //Gains 3/13/2021
+  /*@Log
+  public static double LAUNCHERKP=0.0003;
+  @Log
+  public static double LAUNCHERKI=0.00032;
+  @Log
+  public static double LAUNCHERKD=0.0;*/
+  
+  // Original Gains
   @Log
   public static double LAUNCHERKP=0.0003;
   @Log
