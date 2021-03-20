@@ -69,6 +69,9 @@ public final class Constants {
   public static final int BACK_RIGHT = 15;
   public static final int FRONT_LEFT = 11;
   public static final int BACK_LEFT = 12;
+
+  //Pixy Constants
+  public static int FUEL_CELL = 2;
   //Final Variables
 
   //Gains 3/13/2021

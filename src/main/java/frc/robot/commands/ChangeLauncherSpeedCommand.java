@@ -28,14 +28,15 @@ public class ChangeLauncherSpeedCommand extends CommandBase{
         addRequirements(mLowerLauncher);
     }
     public void initialize(){
-
     }
     /**
      * called when the command is scheduled
      */
     public void execute(){
+        //mUpperLauncher.setSetpoint(setSpeed);
         mUpperLauncher.setSetpoint(setSpeed);
-        mLowerLauncher.setSetpoint(setSpeed*.50);
+        mLowerLauncher.setSetpoint(setSpeed*1.0);
+        //mLowerLauncher.setSetpoint(0);
         if(!RobotContainer.coDriverOI.getRawButton(Constants.LEFT_BUMPER)){
             fin=true;
         }

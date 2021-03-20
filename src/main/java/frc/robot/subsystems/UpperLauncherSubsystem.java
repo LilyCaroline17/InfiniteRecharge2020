@@ -73,7 +73,7 @@ public class UpperLauncherSubsystem extends PIDSubsystem {
     SmartDashboard.putNumber("UpperLauncher Current", launcher1.getOutputCurrent());
     SmartDashboard.putNumber("UpperLauncherSetpoint in RPM", setpoint);
     SmartDashboard.putNumber("UpperLauncher get", launcher1.get());
-    SmartDashboard.putNumber("UpperLauncher getCPR", Encoder1.getCountsPerRevolution());
+    SmartDashboard.putNumber("UpperLaukncher getCPR", Encoder1.getCountsPerRevolution());
     SmartDashboard.putNumber("UpperLauncher getPosition", Encoder1.getPosition());
     SmartDashboard.putNumber("UpperLauncher getVelocityConversionFactor", Encoder1.getVelocityConversionFactor());
   }
